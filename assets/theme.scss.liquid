@@ -11715,3 +11715,137 @@ iframe.zoid-component-frame {
     border-bottom: 2px solid $colorBorder !important;
   }
 }
+
+
+/*==============================================================
+New custom styles created by Paul
+================================================================*/
+// Styles for header
+.site-nav__item{
+  .site-nav__link{
+    font-size: 18px;
+  }
+}
+
+// Styels for megamenu
+.megamenu{
+  padding: 40px 0 20px 0px;
+}
+.megamenu-container{
+  display: none; 
+}
+.megamenu-dropdown{
+  margin: 0;
+  .page-width{
+    max-width: 1200px;
+    padding: 0 10px;
+  }
+  .megamenu-blocks__wrapper{
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+    @for $i from 1 through 100{
+      .megablock-width-#{$i}{
+        flex: 1 1 $i * 1%; 
+        max-width: $i * 1%;
+      }
+    }
+    .megamenu-block{
+      padding: 0 15px;
+    }
+    .megamenu-links_block{
+      .megamenu_block_title{
+        display: inline-block; 
+        line-height: 1.2; 
+        margin-bottom: 20px;
+        &:hover{
+          border-bottom: 2px solid pink;
+        }
+      }
+      .mega-navs{
+        display: grid; 
+        &.cols-1{
+          grid-template-columns: auto;
+        }
+        &.cols-2{
+          grid-template-columns: auto auto; 
+        }
+        &.cols-3{
+          grid-template-columns: auto auto auto;
+        }
+        .mega-nav__item{
+          margin-bottom: 15px;
+          line-height:1.2; 
+          @for $i from 1 through 20{
+            &.rows-#{$i}{
+              grid-row: span $i;
+            }
+          }
+          &.nav-split{
+            background-color: #6a9fd6;
+            display: inline-block;
+            height: 2px; 
+            margin: 0 0 15px 0;
+            padding: 0px;
+            width: 60px;
+          }
+          .mega-nav__title{
+            display: inline-block;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            &:hover{
+              border-bottom: 2px solid #ffc0cb;
+            } 
+          }
+          .mega-subnav__items{
+            margin: 0px;
+            li.mega-subnav__item{
+              list-style-type: none; 
+              margin-bottom: 8px;
+              padding-bottom: 4px;
+              &.nav-split{
+                background-color: #6a9fd6;
+                display: inline-block;
+                height: 2px; 
+                margin: 10px 0;
+                padding: 0px;
+                width: 60px;
+              }
+            }
+          }
+          .megamenu-nav__link{
+            &:hover{
+              position: relative; 
+            }
+            &:hover:after{
+              content: '';
+              width: 100%;
+              height: 2px;
+              background-color: pink;
+              position: absolute;
+              left: 0;
+              bottom: 0;
+            }
+          }
+        }
+      }
+    }
+    .megamenu-image_block{
+      .mega-image{
+        margin-bottom: 10px;
+      }
+      .mega-image_wrapper{
+        line-height: 0; 
+        margin-bottom: 8px; 
+      }
+      .mega-image_caption{
+        line-height: 1.2;
+        margin-bottom: 5px;
+      }
+      .mega-image_button-wrapper{
+        text-align: center; 
+
+      }
+    }  
+  }
+}

@@ -1,4 +1,4 @@
-{%- assign main_menu = linklists[section.settings.main_menu_link_list] -%}
+{%- assign main_menu = linklists[settings.main_menu_link_list] -%}
 {%- assign toolbar_menu = linklists[section.settings.toolbar_menu] -%}
 
 {%- assign logo_alignment = 'left' -%}
@@ -269,12 +269,6 @@
   {
     "name": "Header",
     "settings": [
-      {
-        "type": "link_list",
-        "id": "main_menu_link_list",
-        "label": "Navigation",
-        "default": "main-menu"
-      },
       {
         "type": "checkbox",
         "id": "mega_menu_images",

@@ -207,6 +207,120 @@
     ]
   },
   {
+    "name":"Header",
+    "settings":[
+      {
+        "type": "link_list",
+        "id": "main_menu_link_list",
+        "label": "Navigation",
+        "default": "main-menu"
+      }
+    ]
+  },
+  {
+    "name":"Megamenu",
+    "settings":[
+      {
+        "type":"header",
+        "content":"Megamenu1"
+      },
+      {
+        "type":"checkbox",
+        "id":"megamenu1",
+        "label":"Enable Megamenu1"
+      },
+      {
+        "type":"text",
+        "id":"mega1_parent_link",
+        "label":"Parent link title"
+      },
+      {
+        "type":"header",
+        "content":"Megamenu2"
+      },
+      {
+        "type":"checkbox",
+        "id":"megamenu2",
+        "label":"Enable Megamenu2"
+      },
+      {
+        "type":"text",
+        "id":"mega2_parent_link",
+        "label":"Parent link title"
+      },
+      {
+        "type":"header",
+        "content":"Megamenu3"
+      },
+      {
+        "type":"checkbox",
+        "id":"megamenu3",
+        "label":"Enable Megamenu3"
+      },
+      {
+        "type":"text",
+        "id":"mega3_parent_link",
+        "label":"Parent link title"
+      },
+      {
+        "type":"header",
+        "content":"Megamenu4"
+      },
+      {
+        "type":"checkbox",
+        "id":"megamenu4",
+        "label":"Enable Megamenu4"
+      },
+      {
+        "type":"text",
+        "id":"mega4_parent_link",
+        "label":"Parent link title"
+      },
+      {
+        "type":"header",
+        "content":"Megamenu5"
+      },
+      {
+        "type":"checkbox",
+        "id":"megamenu5",
+        "label":"Enable Megamenu5"
+      },
+      {
+        "type":"text",
+        "id":"mega5_parent_link",
+        "label":"Parent link title"
+      },
+      {
+        "type":"header",
+        "content":"Megamenu6"
+      },
+      {
+        "type":"checkbox",
+        "id":"megamenu6",
+        "label":"Enable Megamenu6"
+      },
+      {
+        "type":"text",
+        "id":"mega6_parent_link",
+        "label":"Parent link title"
+      },
+      {
+        "type":"header",
+        "content":"Megamenu7"
+      },
+      {
+        "type":"checkbox",
+        "id":"megamenu7",
+        "label":"Enable Megamenu7"
+      },
+      {
+        "type":"text",
+        "id":"mega7_parent_link",
+        "label":"Parent link title"
+      }
+    ]
+  },
+  {
     "name": "Typography",
     "settings": [
       {

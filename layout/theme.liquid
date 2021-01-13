@@ -92,7 +92,30 @@
     <div class="transition-body">
 
     {% section 'header' %}
-
+    <!-- PGCUSTOMIZED START add megamenu -->
+    <div class="megamenu-container">
+      {% if settings.megamenu1 %}
+        {% section 'megamenu1' %}
+      {% endif %}
+      {% if settings.megamenu2 %}
+        {% section 'megamenu2' %}
+      {% endif %}
+      {% if settings.megamenu3 %}
+        {% section 'megamenu3' %}
+      {% endif %}
+      {% if settings.megamenu4 %}
+        {% section 'megamenu4' %}
+      {% endif %}
+      {% if settings.megamenu5 %}
+        {% section 'megamenu5' %}
+      {% endif %}
+      {% if settings.megamenu6 %}
+        {% section 'megamenu6' %}
+      {% endif %}
+      {% if settings.megamenu7 %}
+        {% section 'megamenu7' %}
+      {% endif %}
+    </div>
       <main class="main-content" id="MainContent">
         {{ content_for_layout }}
       </main>

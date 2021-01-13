@@ -1,0 +1,520 @@
+{%- assign main_menu = linklists[settings.main_menu_link_list] -%}
+{%- assign parent_target_link_handle = settings.mega4_parent_link | handle -%}
+{% for link in main_menu.links %}
+  {%- assign link_handle = link.title | handle -%}
+  {% if link_handle == parent_target_link_handle %}
+    {%- assign mega_parent_links = link -%}
+  {% endif %}
+{% endfor %}
+<div class="megamenu-dropdown" data-dropdown-rel={{settings.mega4_parent_link | handle}}>
+  <div class="page-width" style="max-width: {{section.settings.max_width}}px;">
+    <div class="megamenu-blocks__wrapper">
+      {% for block in section.blocks %}
+        <div class="megamenu-block megablock-width-{{block.settings.block_width}}" {{block.shopify_attributes}}>
+          {% if block.type == 'menu'%}
+            {% style %}
+              {{block.settings.title_font | font_modify: 'weight', 'normal' | font_face}}
+              {{block.settings.title_font | font_modify: 'weight', 'bold' | font_face}}
+              {{block.settings.sub_title_font | font_modify: 'weight', 'normal' | font_face}}
+              {{block.settings.sub_title_font | font_modify: 'weight', '600' | font_face}}
+              {{block.settings.sub_title_font | font_modify: 'weight', 'bold' | font_face}}
+              {{block.settings.mega_nav_font | font_modify: 'weight', 'normal' | font_face}}
+              {{block.settings.mega_nav_font | font_modify: 'weight', 'bold' | font_face}}
+              .megamenu_block_title[data-block-id="{{block.id}}"]{
+                color: {{block.settings.title_color}};
+                font-family: {{block.settings.title_font.family}}, {{block.settings.title_font.fallback_families}};
+                font-size: {{block.settings.title_size}}px; 
+                font-weight: {{block.settings.title_font.weight}};
+              }
+              .mega-nav__title[data-block-id="{{block.id}}"]{
+                color: {{block.settings.sub_title_color}};
+                font-family: {{block.settings.sub_title_font.family}}, {{block.settings.sub_title_font.fallback_families}};
+                font-size: {{block.settings.sub_title_size}}px; 
+                font-weight: {{block.settings.sub_title_font.weight}};
+              }
+              .megamenu-nav__link[data-block-id="{{block.id}}"]{
+                color: {{block.settings.mega_nav_color}};
+                font-family: {{block.settings.mega_nav_font.family}}, {{block.settings.mega_nav_font.fallback_families}};
+                font-size: {{block.settings.mega_nav_size}}px;
+                font-weight: {{block.settings.mega_nav_font.weight}};
+              }
+            {% endstyle %}
+            <div class="megamenu-links_block">
+              {% if block.settings.title %}
+                <a href="{{block.settings.url_title}}" class="megamenu_block_title" data-block-id="{{block.id}}">{{block.settings.title}}</a>
+              {% endif %}
+              <div class="mega-navs cols-{{block.settings.col_count}}">
+                {% if block.settings.sublinks != blank %}
+                  {%- assign sub_menus = block.settings.sublinks | split: ',' -%}
+                  {% for sub_menu in sub_menus %}
+                    {% assign sub_menu_handle = sub_menu | handle %}
+                    {% for mega_link in mega_parent_links.links %}
+                      {%- assign mega_link_handle = mega_link.title | handle -%}
+                      {% if mega_link_handle == sub_menu_handle %}
+                        <div class="mega-nav__item rows-{{mega_link.links.size | plus: 1}}">
+                          <a href="{{mega_link.url}}" class="mega-nav__title" data-block-id="{{block.id}}">{{mega_link.title | split: '*' | first}}</a>
+                          {% if mega_link.links %}
+                            <ul class="mega-subnav__items">
+                              {% for mega_sub_link in mega_link.links %}
+                                <li class="mega-subnav__item {% if mega_sub_link.title == '*split*'%}nav-split{% endif %}">
+                                  {% unless mega_sub_link.title contains '*split*' %}
+                                  <a href="{{mega_sub_link.url}}" class="megamenu-nav__link" data-block-id="{{block.id}}">{{mega_sub_link.title}}</a>
+                                  {% endunless%}
+                                </li>
+                              {% endfor %}
+                            </ul>
+                          {% endif %}
+                        </div>
+                      {% endif %} 
+                    {% endfor %}
+                  {% endfor %}
+                {% else %}
+                  {% for mega_link in mega_parent_links.links %}
+                    <div class="mega-nav__item rows-{{mega_link.links.size | plus: 1}} {% if mega_link.title contains '*split*' %}nav-split{% endif %}">
+                      {% unless maga_link.title contains '*split*' %}
+                        <a href="{{mega_link.url}}" class="mega-nav__title" data-block-id="{{block.id}}">{{mega_link.title | split: '*' | first}}</a>
+                        {% if mega_link.links %}
+                          <ul class="mega-subnav__items">
+                            {% for mega_sub_link in mega_link.links %}
+                            <li class="mega-subnav__item {% if mega_sub_link.title == '*split*'%}nav-split{% endif %}">
+                              {% unless mega_sub_link.title contains '*split*' %}
+                              <a href="{{mega_sub_link.url}}" class="megamenu-nav__link" data-block-id="{{block.id}}">{{mega_sub_link.title}}</a>
+                              {% endunless%}
+                            </li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      {% endunless %}
+                    </div>
+                  {% endfor %}
+                {% endif %}  
+              </div>
+            </div>
+          {% elsif block.type == "image" %}
+            <div class="megamenu-image_block">
+              {% for i in (1..2) %}
+                {%- assign image_handle = 'image' | append: i -%}
+                {%- assign caption_handle = 'caption' | append: i -%}
+                {%- assign caption_font_handle = 'caption' | append: i | append: '_font' -%}
+                {%- assign caption_size_handle = 'caption' | append: i | append: '_size' -%}
+                {%- assign caption_color_handle = 'caption' | append: i | append: '_color' -%}
+                {%- assign caption_alignment_handle = 'caption' | append: i | append: '_alignment' -%}
+                {%- assign button_font_handle = 'button' | append: i | append: '_font' -%}
+                {%- assign button_size_handle = 'button' | append: i | append: '_size' -%}
+                {%- assign button_color_handle = 'button' | append: i | append: '_color' -%}
+                {%- assign label_handle = 'label' | append: i -%}
+                {%- assign btn_link_handle = 'link' | append: i -%}
+                {% style %}
+                  {{block.settings[caption_font_handle] | font_modify: 'weight', 'normal' | font_face}}
+                  {{block.settings[caption_font_handle] | font_modify: 'weight', '600' | font_face}}
+                  {{block.settings[caption_font_handle] | font_modify: 'weight', 'bold' | font_face}}
+                  {{block.settings[button_font_handle] | font_modify: 'weight', 'normal' | font_face}}
+                  {{block.settings[button_font_handle] | font_modify: 'weight', '600' | font_face}}
+                  {{block.settings[button_font_handle] | font_modify: 'weight', 'bold' | font_face}}
+                  .mega-image_caption[data-image-num="{{i}}"][data-block-id="{{block.id}}"]{
+                    color: {{block.settings[caption_color_handle]}};
+                    font-family: {{block.settings[caption_font_handle].family}}, {{block.settings[caption_font_handle].fallback_families}};
+                    font-size: {{block.settings[caption_size_handle]}}px;
+                    font-weight: {{block.settings[caption_font_handle].weight}};
+                    text-align: {{block.settings[caption_alignment_handle]}};
+                  }
+
+                  .mega-image_button[data-image-num="{{i}}"][data-block-id="{{block.id}}"]{
+                    color: {{block.settings[button_color_handle]}};
+                    font-family: {{block.settings[button_font_handle].family}}, {{block.settings[button_font_handle].fallback_families}};
+                    font-size: {{block.settings[button_size_handle]}}px;
+                    font-weight: {{block.settings[button_font_handle].weight}};
+                  }
+                {% endstyle %}
+                {% if block.settings[image_handle] != nil %}  
+                  <div class="mega-image">
+                    <div class="mega-image_wrapper">
+                      <img src="{{block.settings[image_handle] |img_url: 'master' | split: '?' | first}}" alt="{{block.settings[image_handle].alt}}">  
+                    </div>
+                    {% if block.settings[caption_handle] != blank or block.settings[label_handle] != blank %}
+                    <div class="mega-image_meta">
+                      <p class="mega-image_caption" data-image-num="{{i}}" data-block-id="{{block.id}}">{{block.settings[caption_handle]}}</p>
+                      {% if block.settings[label_handle] %}
+                      <div class="mega-image_button-wrapper">
+                        <a href="{{block.settings[btn_link_handle]}}" class="mega-image_button" data-image-num="{{i}}" data-block-id="{{block.id}}">{{block.settings[label_handle]}}</a>  
+                      </div>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}    
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name":"Megamenu4",
+  "settings":[
+    {
+        "type":"range",
+        "id":"max_width",
+        "label":"Content max width",
+        "min": 600, 
+        "max": 1200,
+        "step": 10,
+        "unit": "px",
+        "default": 1200
+    }
+  ],
+  "blocks":[
+    {
+      "name":"Menu",
+      "type":"menu",
+      "settings":[
+        {
+          "type":"header",
+          "content":"Block Layout"
+        },
+        {
+          "type":"range",
+          "id":"block_width",
+          "label":"Block Width",
+          "min": 0, 
+          "max": 100,
+          "unit":"%",
+          "default": 20
+        },
+        {
+          "type":"range",
+          "id":"col_count",
+          "label":"Block column count",
+          "min": 1, 
+          "max": 3, 
+          "default": 2
+        },
+        {
+          "type":"header",
+          "content":"Block Title"
+        },
+        {
+          "type":"textarea",
+          "id":"title",
+          "label":"Menu Title"
+        },
+        {
+          "type":"url",
+          "id":"url_title",
+          "label":"Url Title"
+        },
+        {
+          "type":"paragraph",
+          "content":"Styles for block Title"
+        },
+        {
+          "type":"font_picker",
+          "id":"title_font",
+          "label":"Title Font",
+          "default":"times_new_roman_n7"       
+        },
+        {
+          "type":"range",
+          "id":"title_size",
+          "label":"Title size",
+          "min": 10, 
+          "max": 40,
+          "step": 1, 
+          "default": 22,
+          "unit":"px"
+        },
+        {
+          "type":"color",
+          "id":"title_color",
+          "label":"Title color",
+          "default":"#104177"
+        },
+        {
+          "type":"header",
+          "content":"Block navigation"
+        },
+        {
+          "type":"textarea",
+          "id":"sublinks",
+          "label":"Sublink titles",
+          "info":"Split each title of second links with comma(,)."
+        },
+        {
+          "type":"header",
+          "content":"Styles for navigation"
+        },
+        {
+          "type":"paragraph",
+          "content":"Subtitle"
+        },
+        {
+          "type":"font_picker",
+          "id":"sub_title_font",
+          "label":"Subtitle Font",
+          "default":"raleway_n7"       
+        },
+        {
+          "type":"range",
+          "id":"sub_title_size",
+          "label":"Subtitle size",
+          "min": 10, 
+          "max": 40,
+          "step": 1, 
+          "default": 16,
+          "unit":"px"
+        },
+        {
+          "type":"color",
+          "id":"sub_title_color",
+          "label":"Subtitle color",
+          "default":"#6A9FD6"
+        },
+        {
+          "type":"paragraph",
+          "content":"Navigation link"
+        },
+        {
+          "type":"font_picker",
+          "id":"mega_nav_font",
+          "label":"Mega nav font",
+          "default":"raleway_n5"       
+        },
+        {
+          "type":"range",
+          "id":"mega_nav_size",
+          "label":"Mega nav size",
+          "min": 10, 
+          "max": 40,
+          "step": 1, 
+          "default": 16,
+          "unit":"px"
+        },
+        {
+          "type":"color",
+          "id":"mega_nav_color",
+          "label":"Mega nav color",
+          "default":"#6A9FD6"
+        }
+      ]
+    },
+    {
+      "name":"Image Block",
+      "type":"image",
+      "settings":[
+        {
+          "type":"range",
+          "id":"block_width",
+          "label":"Block Width",
+          "min": 0, 
+          "max": 100,
+          "unit":"%",
+          "default": 20
+        },
+        {
+          "type":"header",
+          "content":"Image1"
+        },
+        {
+          "type":"image_picker",
+          "id":"image1",
+          "label":"Image1"
+        },
+        {
+          "type":"textarea",
+          "id":"caption1",
+          "label":"Caption"
+        },
+        {
+          "type":"paragraph",
+          "content":"Styles for caption"
+        },
+        {
+          "type":"font_picker",
+          "id":"caption1_font",
+          "label":"Caption Font",
+          "default":"times_new_roman_n4"       
+        },
+        {
+          "type":"range",
+          "id":"caption1_size",
+          "label":"Caption size",
+          "min": 10, 
+          "max": 40,
+          "step": 1, 
+          "default": 18,
+          "unit":"px"
+        },
+        {
+          "type":"color",
+          "id":"caption1_color",
+          "label":"Caption color",
+          "default":"#1f2a44"
+        },
+        {
+          "type":"select",
+          "id":"caption1_alignment",
+          "label":"Caption Alignment",
+          "options":[
+            {
+              "value":"center",
+              "label":"Center"
+            },
+            {
+              "value":"left",
+              "label":"Left"
+            },
+            {
+              "value":"right",
+              "label":"Right"
+            }
+          ],
+          "default":"center"
+        },
+        {
+          "type":"paragraph",
+          "content":"Button 1"
+        },
+        {
+          "type":"url",
+          "id":"link1",
+          "label":"Link1"
+        },
+        {
+          "type":"text",
+          "id":"label1",
+          "label":"Label1"
+        },
+        {
+          "type":"paragraph",
+          "content":"Styles for Button"
+        },
+        {
+          "type":"font_picker",
+          "id":"button1_font",
+          "label":"Button1 Font",
+          "default":"raleway_n6"       
+        },
+        {
+          "type":"range",
+          "id":"button1_size",
+          "label":"Button1 size",
+          "min": 10, 
+          "max": 40,
+          "step": 1, 
+          "default": 18,
+          "unit":"px"
+        },
+        {
+          "type":"color",
+          "id":"button1_color",
+          "label":"Button1 color",
+          "default":"#6A9FD6"
+        },
+        {
+          "type":"header",
+          "content":"Image2"
+        },
+        {
+          "type":"image_picker",
+          "id":"image2",
+          "label":"Image2"
+        },
+        {
+          "type":"textarea",
+          "id":"caption2",
+          "label":"Caption"
+        },
+        {
+          "type":"paragraph",
+          "content":"Styles for image2's caption"
+        },
+        {
+          "type":"font_picker",
+          "id":"caption2_font",
+          "label":"Caption Font",
+          "default":"times_new_roman_n4"       
+        },
+        {
+          "type":"range",
+          "id":"caption2_size",
+          "label":"Caption size",
+          "min": 10, 
+          "max": 40,
+          "step": 1, 
+          "default": 18,
+          "unit":"px"
+        },
+        {
+          "type":"color",
+          "id":"caption2_color",
+          "label":"Caption color",
+          "default":"#1f2a44"
+        },
+        {
+          "type":"select",
+          "id":"caption2_alignment",
+          "label":"Caption Alignment",
+          "options":[
+            {
+              "value":"center",
+              "label":"Center"
+            },
+            {
+              "value":"left",
+              "label":"Left"
+            },
+            {
+              "value":"right",
+              "label":"Right"
+            }
+          ],
+          "default":"center"
+        },
+        {
+          "type":"paragraph",
+          "content":"Button"
+        },
+        {
+          "type":"url",
+          "id":"link2",
+          "label":"Button Link"
+        },
+        {
+          "type":"text",
+          "id":"label2",
+          "label":"Label"
+        },
+        {
+          "type":"paragraph",
+          "content":"Styles for Button"
+        },
+        {
+          "type":"font_picker",
+          "id":"button2_font",
+          "label":"Button Font",
+          "default":"raleway_n6"       
+        },
+        {
+          "type":"range",
+          "id":"button2_size",
+          "label":"Button size",
+          "min": 10, 
+          "max": 40,
+          "step": 1, 
+          "default": 18,
+          "unit":"px"
+        },
+        {
+          "type":"color",
+          "id":"button2_color",
+          "label":"Button color",
+          "default":"#6A9FD6"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

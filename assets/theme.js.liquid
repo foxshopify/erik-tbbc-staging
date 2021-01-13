@@ -5009,7 +5009,9 @@ function launch($){
       mobileSubNavToggle: '.mobile-nav__toggle-btn',
       hasSublist: '.mobile-nav__has-sublist',
       disclosureLocale: '[data-disclosure-locale]',
-      disclosureCurrency: '[data-disclosure-currency]'
+      disclosureCurrency: '[data-disclosure-currency]',
+      // Script for Add megamenu
+      megamenuContainer: '.megamenu-dropdown'
     };
   
     var classes = {
@@ -5042,7 +5044,14 @@ function launch($){
           this.cache.$currencyDisclosure
         );
       }
-  
+      if($(".megamenu-dropdown").length > 0){
+        $(".megamenu-dropdown").each(function(){
+          var targetParent = $(this).data("dropdown-rel"), 
+              targetParentMenu = $(`.site-nav__dropdown[data-mega-rel='${targetParent}']`);
+          console.log(targetParentMenu);
+          $(this).clone().appendTo(targetParentMenu);
+        });
+      }
       // Set a timer to resize the header in case the logo changes size
       if (Shopify.designMode) {
         setTimeout(function() {
@@ -5099,7 +5108,7 @@ function launch($){
           $el.closest(selectors.hasSublist).toggleClass(classes.navExpanded, toggleState);
         });
       },
-  
+      
       onBlockSelect: function(evt) {
         theme.announcementBar.onBlockSelect(evt.detail.blockId);
       },
@@ -5122,7 +5131,7 @@ function launch($){
         }
       }
     });
-  
+    
     return Header;
   
   })();

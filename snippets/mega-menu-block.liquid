@@ -1,0 +1,73 @@
+<div class="megamenu-container">
+  <div class="megamenu_links_wrapper mega-block width-{{- block.settings.width_link_block -}}">
+    {% for megasublink in megamenu_link.links %}
+      <ul class="mega-nav">
+        <li class="mega-nav__item">
+          <a href="{{megasublink.url}}" class="site-nav__link {% if megasublink.level >= 1 %}mega-nav__title{% endif %}" data-nav-depth="{{megasublink.level}}">{{megasublink.title}}</a>
+          {% if megasublink.links %}
+            <ul class="mega-sub-nav">
+              {% for mega_grand_sub_link in megasublink.links %}
+                <li class="mega-sub-nav__item">
+                  <a href="{{mega_grand_sub_link.url}}" class="site-nav__link {% if mega_grand_sub_link.links %}mega-nav__title{% endif %}">{{mega_grand_sub_link.title}}</a>
+                </li>  
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      </ul>
+    {% endfor %}  
+  </div>
+
+  {% if block.settings.image_1_1 != nil or block.settings.image_1_2 %}
+    <div class="mega_meta_content_wrapper mega-block width-{{- block.settings.width_image_block1 -}}">
+      {% if block.settings.image_1_1 != nil %}
+        <div class="mega-image-block">
+          <img src="{{block.settings.image_1_1 |img_url:'master' | split:'?' | first}}" alt="{{block.settings.image_1_1.alt}}">
+          {% if block.settings.caption_1_1 != blank %}
+            <p class="mega-image-caption">{{block.settings.caption_1_1}}</p>  
+          {% endif %}
+          {% if block.settings.link_1_1 != nil %}
+            <a href="{{block.settings.link_1_1}}" class="mega_menu_image_link">{{block.settings.label_1_1}}</a>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if block.settings.image_1_2 != nil %}
+        <div class="mega-image-block">
+          <img src="{{block.settings.image_1_2 |img_url:'master' | split:'?' | first}}" alt="{{block.settings.image_1_2.alt}}">
+          {% if block.settings.caption_1_2 != blank %}
+            <p class="mega-image-caption">{{block.settings.caption_1_2}}</p>  
+          {% endif %}
+          {% if block.settings.link_1_2 != nil %}
+            <a href="{{block.settings.link_1_2}}" class="mega_menu_image_link">{{block.settings.label_1_2}}</a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div> 
+  {% endif %}
+  {% if block.settings.image_2_1 != nil or block.settings.image_2_2 %}
+    <div class="mega_meta_content_wrapper mega-block width-{{- block.settings.width_image_block2 -}}">
+      {% if block.settings.image_2_1 != nil %}
+        <div class="mega-image-block">
+          <img src="{{block.settings.image_2_1 |img_url:'master' | split:'?' | first}}" alt="{{block.settings.image_2_1.alt}}">
+          {% if block.settings.caption_2_1 != blank %}
+            <p class="mega-image-caption">{{block.settings.caption_2_1}}</p>  
+          {% endif %}
+          {% if block.settings.link_2_1 != nil %}
+            <a href="{{block.settings.link_2_1}}" class="mega_menu_image_link">{{block.settings.label_2_1}}</a>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if block.settings.image_2_2 != nil %}
+        <div class="mega-image-block">
+          <img src="{{block.settings.image_2_2 |img_url:'master' | split:'?' | first}}" alt="{{block.settings.image_2_2.alt}}">
+          {% if block.settings.caption_2_2 != blank %}
+            <p class="mega-image-caption">{{block.settings.caption_2_2}}</p>  
+          {% endif %}
+          {% if block.settings.link_2_2 != nil %}
+            <a href="{{block.settings.link_2_2}}" class="mega_menu_image_link">{{block.settings.label_2_2}}</a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div> 
+  {% endif %}
+</div>

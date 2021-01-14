@@ -278,7 +278,7 @@
       "title": "Cart"
     },
     "customer": {
-      "account": "Account",
+      "account": "My Account",
       "log_out": "Log out",
       "log_in": "Log in",
       "create_account": "Create account"

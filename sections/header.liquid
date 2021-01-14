@@ -58,24 +58,19 @@
   {% endif %}
 
   {% unless overlay_header %}
-    {% if settings.enable_currencies or section.settings.toolbar_social or section.settings.toolbar_menu != blank %}
       {% include 'toolbar',
         overlay_header: overlay_header,
         show_currency_flags: section.settings.show_currency_flags
       %}
-    {% endif %}
   {% endunless %}
 
   <div class="header-sticky-wrapper">
     <div class="header-wrapper{% if overlay_header %} header-wrapper--sticky is-light{% endif %}">
 
       {% if overlay_header %}
-        {% if settings.enable_currencies or section.settings.toolbar_social or section.settings.toolbar_menu != blank %}
           {% include 'toolbar',
-            overlay_header: overlay_header,
-            show_currency_flags: section.settings.show_currency_flags
+            overlay_header: overlay_header
           %}
-        {% endif %}
       {% endif %}
       
       <header
@@ -378,43 +373,82 @@
         "content": "Toolbar"
       },
       {
-        "type": "link_list",
-        "id": "toolbar_menu",
-        "label": "Navigation",
-        "info": "This menu won't show dropdown items"
+        "type":"textarea",
+        "id":"toolbar_text",
+        "label":"Toolbar Text"
       },
       {
-        "type": "checkbox",
-        "id": "toolbar_social",
-        "label": "Show social icons"
+        "type":"paragraph",
+        "content":"Toolbar links"
       },
       {
-        "type": "header",
-        "content": "Language selector",
-        "info": "To add a language, go to your [language settings.](/admin/settings/languages)"
+        "type":"url",
+        "id":"toolbar_link1",
+        "label":"link1"
       },
       {
-        "type": "checkbox",
-        "id": "show_locale_selector",
-        "label": "Show language selector",
-        "default": true
+        "type":"image_picker",
+        "id":"toolbar_link1_icon",
+        "label":"Icon of link1"
       },
       {
-        "type": "header",
-        "content": "Currency selector",
-        "info": "To add a currency, go to your [currency settings.](/admin/settings/payments)"
+        "type":"text",
+        "id":"toolbar_link1_label",
+        "label":"Toolbar_link1_label"
       },
       {
-        "type": "checkbox",
-        "id": "show_currency_selector",
-        "label": "Show currency selector",
-        "default": true
+        "type":"url",
+        "id":"toolbar_link2",
+        "label":"link2"
       },
       {
-        "type": "checkbox",
-        "id": "show_currency_flags",
-        "label": "Show currency flags",
-        "default": true
+        "type":"image_picker",
+        "id":"toolbar_link2_icon",
+        "label":"Icon of link2"
+      },
+      {
+        "type":"text",
+        "id":"toolbar_link2_label",
+        "label":"Toolbar_link2_label"
+      },
+      {
+        "type":"url",
+        "id":"toolbar_link3",
+        "label":"link3"
+      },
+      {
+        "type":"image_picker",
+        "id":"toolbar_link3_icon",
+        "label":"Icon of link3"
+      },
+      {
+        "type":"text",
+        "id":"toolbar_link3_label",
+        "label":"Toolbar_link3_label"
+      },
+      {
+        "type":"url",
+        "id":"toolbar_link4",
+        "label":"link4"
+      },
+      {
+        "type":"image_picker",
+        "id":"toolbar_link4_icon",
+        "label":"Icon of link4"
+      },
+      {
+        "type":"text",
+        "id":"toolbar_link4_label",
+        "label":"Toobar_link4_label"
+      },
+      {
+        "type":"paragraph",
+        "content":"Account Link"
+      },
+      {
+        "type":"image_picker",
+        "id":"account_icon",
+        "label":"Account Icon"
       }
     ],
     "blocks": [

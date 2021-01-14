@@ -50,12 +50,6 @@
       padding-right: 10px;
     }
   {% endif %}
-
-  {% unless section.settings.mega_menu_images %}
-    .megamenu__colection-image {
-      display: none;
-    }
-  {% endunless %}
 {% endstyle %}
 
 <div data-section-id="{{ section.id }}" data-section-type="header-section">
@@ -270,13 +264,6 @@
     "name": "Header",
     "settings": [
       {
-        "type": "checkbox",
-        "id": "mega_menu_images",
-        "label": "Show mega menu images",
-        "default": true,
-        "info": "[How to create a mega menu](https://archetypethemes.co/blogs/impulse/how-do-i-create-a-mega-menu)"
-      },
-      {
         "type": "select",
         "id": "main_menu_alignment",
         "label": "Header layout",
@@ -342,24 +329,49 @@
         "default": false
       },
       {
-        "type": "checkbox",
-        "id": "mega_menu_enable",
-        "label": "Enable mega menu",
-        "default": true
-      },
-      {
         "type": "header",
         "content": "Announcement bar"
       },
       {
         "type": "checkbox",
-        "id": "announcement_compact",
-        "label": "Use compact style"
-      },
-      {
-        "type": "checkbox",
         "id": "announcement_above_header",
         "label": "Always show above header"
+      },
+      {
+        "type":"paragraph",
+        "content":"Announcement slideshow settings"
+      },
+      {
+        "type":"select",
+        "id":"announcement_slideshow_effect",
+        "label":"Switch effect",
+        "options":[
+          {
+            "value":"fade", 
+            "label":"Fade"
+          },
+          {
+            "value":"scroll",
+            "label":"Scroll"
+          }
+        ],
+        "default":"fade"
+      },
+      {
+        "type":"checkbox",
+        "id":"announcement_autoplay",
+        "label":"Autoplay",
+        "default": true
+      },
+      {
+        "type":"range",
+        "id":"announcement_autoplay_speed",
+        "label":"Autoplay Speed",
+        "min": 1, 
+        "max": 10,
+        "step": 1, 
+        "unit":"S",
+        "default": 3
       },
       {
         "type": "header",
@@ -472,6 +484,38 @@
             "type": "url",
             "id": "link",
             "label": "Link"
+          },
+          {
+            "type":"header",
+            "content":"Announcement Style"
+          },
+          {
+            "type":"color",
+            "id":"announcement_background_color",
+            "label":"Background Color",
+            "default":"#a7ccf2"
+          },
+          {
+            "type":"font_picker",
+            "id":"announcement_font",
+            "label":"Font",
+            "default":"times_new_roman_n4"
+          },
+          {
+            "type":"range",
+            "id":"announcement_size",
+            "label":"Font Size",
+            "min": 10, 
+            "max": 20, 
+            "default": 14,
+            "unit":"px",
+            "step": 1
+          },
+          {
+            "type":"color",
+            "id":"announcement_color",
+            "label":"Color",
+            "default":"#fff"
           }
         ]
       }

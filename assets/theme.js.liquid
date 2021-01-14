@@ -2162,8 +2162,6 @@ function launch($){
       accessibility: true,
       arrows: false,
       dots: false,
-      autoplay: true,
-      autoplaySpeed: 5000,
       touchThreshold: 20,
       slidesToShow: 1
     };
@@ -2177,12 +2175,18 @@ function launch($){
   
       slideCount = $slider.data('block-count');
       compact = $slider.data('compact-style');
-  
+      defaults.autoplay = parseInt($slider.data('slideshow-autoplay'));
+      defaults.autoplaySpeed = parseInt($slider.data('slideshow-autoplay-speed')) * 1000;
+      if($slider.data('slideshow-fade') == 'fade'){
+        defaults.fade = true
+      }else{
+        defaults.fade = false
+      }
       var desktopOptions = $.extend({}, defaults, {
         slidesToShow: compact ? 1 : slideCount,
         slidesToScroll: 1
       });
-  
+      
       var mobileOptions = $.extend({}, defaults, {
         slidesToShow: 1
       });

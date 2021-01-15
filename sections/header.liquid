@@ -1,15 +1,9 @@
 {%- assign main_menu = linklists[settings.main_menu_link_list] -%}
 {%- assign toolbar_menu = linklists[section.settings.toolbar_menu] -%}
 
-{%- assign logo_alignment = 'left' -%}
-{% if section.settings.main_menu_alignment == 'center-left' or section.settings.main_menu_alignment == 'center-split' or section.settings.main_menu_alignment == 'center' or section.settings.main_menu_alignment == 'center-drawer' %}
-  {%- assign logo_alignment = 'center' -%}
-{% endif %}
+{%- assign logo_alignment = section.settings.logo_alignment -%}
 
-{%- assign dropdown_alignment = 'left' -%}
-{% if section.settings.main_menu_alignment == 'left-center' or section.settings.main_menu_alignment == 'center-split' or section.settings.main_menu_alignment == 'center' %}
-  {%- assign dropdown_alignment = 'center' -%}
-{% endif %}
+{%- assign dropdown_alignment = 'center' -%}
 
 {% include 'drawer-menu' %}
 {% include 'cart-drawer' %}
@@ -79,7 +73,7 @@
         
         <div class="page-width">
           <div
-            class="header-layout header-layout--{{ section.settings.main_menu_alignment }}"
+            class="header-layout header-layout--{{logo_alignment}}"
             data-logo-align="{{ logo_alignment }}">
 
             {% if logo_alignment == 'left' %}
@@ -88,8 +82,8 @@
               </div>
             {% endif %}
 
-            {% if logo_alignment == 'left' and section.settings.main_menu_alignment != 'left-drawer' %}
-              <div class="header-item header-item--navigation{% if section.settings.main_menu_alignment == 'left-center' %} text-center{% endif %}">
+            {% if logo_alignment == 'left' %}
+              <div class="header-item header-item--navigation text-center">
                 {% include 'header-desktop-nav' %}
               </div>
             {% endif %}
@@ -97,80 +91,20 @@
             {% comment %}THIS ONE{% endcomment %}
             {% if logo_alignment == 'center' %}
               <div class="header-item header-item--left header-item--navigation">
-                {% if section.settings.main_menu_alignment == 'center' or section.settings.main_menu_alignment == 'center-split' %}
-                  {% if settings.search_enable %}
-                
-                
-                  <form action="{{ routes.search_url }}" method="get" role="search"
-                        id="HeaderSearchForm"
-                        class="site-header__search-form small--hide">
-                    <input type="hidden" name="type" value="{{ settings.search_type }}">
-                    <button type="submit" class="text-link site-header__search-btn site-header__search-btn--submit">
-                      <img src="//cdn.shopify.com/s/files/1/0367/5301/products/search_new_whitebg_100x100.jpg?v=1570028106" alt="xx" width="40">
-                      <span class="icon__fallback-text">Search</span>
-                    </button>
-                    <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="site-header__search-input" aria-label="{{ 'general.search.placeholder' | t }}">
-                  </form>
-                
-                	{% comment %}
-                    <div class="site-nav small--hide">
-                      <a href="{{ routes.search_url }}" class="site-nav__link site-nav__link--icon js-search-header js-no-transition">
-                        <img src="//cdn.shopify.com/s/files/1/0367/5301/products/search_new_whitebg_100x100.jpg?v=1570028106" alt="xx" width="40">
-                		<!--
-                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 64 64"><path d="M47.16 28.58A18.58 18.58 0 1 1 28.58 10a18.58 18.58 0 0 1 18.58 18.58zM54 54L41.94 42"/></svg>      
-                        -->
-                        <span class="icon__fallback-text">{{ 'general.search.title' | t }}</span>
-                      </a>
-                    </div>
-                
-                    <div class="site-header__search-container search-desktop small--hide">
-                      <div class="site-header__search">
-                        <div class="page-width">
-                          <form action="{{ routes.search_url }}" method="get" role="search"
-                                id="HeaderSearchForm"
-                                class="site-header__search-form">
-                            <input type="hidden" name="type" value="{{ settings.search_type }}">
-                            <button type="submit" class="text-link site-header__search-btn site-header__search-btn--submit">
-                              <img src="//cdn.shopify.com/s/files/1/0367/5301/products/search_new_whitebg_100x100.jpg?v=1570028106" alt="xx" width="50">
-                              <!--
-                              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 64 64"><path d="M47.16 28.58A18.58 18.58 0 1 1 28.58 10a18.58 18.58 0 0 1 18.58 18.58zM54 54L41.94 42"/></svg>
-                              -->
-                              <span class="icon__fallback-text">{{ 'general.search.submit' | t }}</span>
-                            </button>
-                            <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="site-header__search-input" aria-label="{{ 'general.search.placeholder' | t }}">
-                          </form>
-                          <button type="button" class="js-search-header-close text-link site-header__search-btn">
-                            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 64 64"><path d="M19 17.61l27.12 27.13m0-27.12L19 44.74"/></svg>
-                            <span class="icon__fallback-text">{{ 'general.accessibility.close_modal' | t | json }}</span>
-                          </button>
-                        </div>
-                      </div>
-                      {%- if settings.predictive_search_enabled -%}
-                      <div class="predictive-results hide">
-                        <div class="page-width">
-                          <div id="PredictiveResults"></div>
-                          <div class="text-center predictive-results__footer">
-                            <button type="button" class="btn btn--small" data-predictive-search-button>
-                              <small>
-                                {{ 'general.search.view_more' | t }}
-                              </small>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      {%- endif -%}
-                    </div>
-                	{% endcomment %}
-               		
-                
-                  {% endif %}
+                {% if settings.search_enable %}
+                <form action="{{ routes.search_url }}" method="get" role="search"
+                      id="HeaderSearchForm"
+                      class="site-header__search-form small--hide">
+                  <input type="hidden" name="type" value="{{ settings.search_type }}">
+                  <button type="submit" class="text-link site-header__search-btn site-header__search-btn--submit">
+                    <img src="//cdn.shopify.com/s/files/1/0367/5301/products/search_new_whitebg_100x100.jpg?v=1570028106" alt="xx" width="40">
+                    <span class="icon__fallback-text">Search</span>
+                  </button>
+                  <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="site-header__search-input" aria-label="{{ 'general.search.placeholder' | t }}">
+                </form>
                 {% endif %}
 
-                {% if section.settings.main_menu_alignment == 'center-left' %}
-                  {% include 'header-desktop-nav' %}
-                {% endif %}
-
-                <div class="site-nav{% unless section.settings.main_menu_alignment == 'center-drawer' %} medium-up--hide{% endunless %}">
+                <div class="site-nav medium-up--hide">
                   <button
                     type="button"
                     class="site-nav__link site-nav__link--icon js-drawer-open-nav"
@@ -180,28 +114,24 @@
                   </button>
                 </div>
               </div>
-
-              {% if section.settings.main_menu_alignment == 'center-split' %}
-                {% include 'header-split-nav' %}
-              {% endif %}
-
-              {% comment %}THIS ONE{% endcomment %}
-              {% if section.settings.main_menu_alignment != 'center-split' %}
-                <div class="header-item header-item--logo">
-                  {% include 'header-logo-block' %}
-                </div>
-              {% endif %}
             {% endif %}
-		
+            {%- if logo_alignment == 'center' -%}
+              {% include 'header-logo-block' %}
+            {%- endif -%}
             {% comment %}THIS ONE{% endcomment %}
-            <div class="header-item header-item--icons">
-              {% include 'header-icons' %}
+            <div class="header-item header-item--icons special-navs__wrapper">
+              {% include 'header-special-navs' %}
             </div>
           </div>
 
-          {% if section.settings.main_menu_alignment == 'center' %}
-            <div class="text-center">
+          {% if logo_alignment == 'center' or sticky_header %}
+            <div class="text-center {% if sticky_header%}sticky-navigation {% endif %} {% if logo_alignment == 'left' and sticky_header %}only-sticky-navigation{% endif %}">
               {% include 'header-desktop-nav' %}
+              {% if sticky_header %}
+                <div class="sticky-special-nav">
+                  {% include 'header-special-navs' %}
+                </div>
+              {% endif %}  
             </div>
           {% endif %}
         </div>
@@ -252,77 +182,13 @@
   {% unless overlay_header or section.settings.announcement_above_header %}
     {% include 'announcement-bar' %}
   {% endunless %}
+  
 </div>
 
 {% schema %}
   {
     "name": "Header",
     "settings": [
-      {
-        "type": "select",
-        "id": "main_menu_alignment",
-        "label": "Header layout",
-        "default": "left",
-        "options": [
-          {
-            "value": "left",
-            "label": "Logo left, menu left"
-          },
-          {
-            "value": "left-center",
-            "label": "Logo left, menu center"
-          },
-          {
-            "value": "left-drawer",
-            "label": "Logo left, menu drawer"
-          },
-          {
-            "value": "center-left",
-            "label": "Logo center, menu left"
-          },
-          {
-            "value": "center-split",
-            "label": "Logo center, menu split"
-          },
-          {
-            "value": "center",
-            "label": "Logo center, menu below"
-          },
-          {
-            "value": "center-drawer",
-            "label": "Logo center, menu drawer"
-          }
-        ]
-      },
-      {
-        "type": "select",
-        "id": "header_style",
-        "label": "Header style",
-        "default": "normal",
-        "options": [
-          {
-            "value": "normal",
-            "label": "Normal"
-          },
-          {
-            "value": "sticky",
-            "label": "Sticky"
-          }
-        ]
-      },
-      {
-        "type": "checkbox",
-        "id": "sticky_index",
-        "label": "Overlay header over home page",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "sticky_collection",
-        "label": "Overlay header over collection",
-        "info": "(if collection image is enabled)",
-        "default": false
-      },
       {
         "type": "header",
         "content": "Announcement bar"
@@ -449,7 +315,132 @@
         "type":"image_picker",
         "id":"account_icon",
         "label":"Account Icon"
-      }
+      },
+      {
+        "type":"header",
+        "content":"Main Header settings"
+      },
+      {
+        "type": "select",
+        "id": "logo_alignment",
+        "label": "Logo alignment",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value":"center", 
+            "label":"Center"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "header_style",
+        "label": "Header style",
+        "default": "normal",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "sticky",
+            "label": "Sticky"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "sticky_index",
+        "label": "Overlay header over home page",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "sticky_collection",
+        "label": "Overlay header over collection",
+        "info": "(if collection image is enabled)",
+        "default": false
+      },
+      {
+        "type":"header",
+        "content":"Special navs in header"
+      },
+      {
+        "type":"paragraph",
+        "content":"Special nav1"
+      },
+      {
+        "type":"url",
+        "id":"special_nav1_link",
+        "label":"Special nav1 link"
+      },
+      {
+        "type":"image_picker",
+        "id":"special_nav1_icon",
+        "label":"Special nav1 Icon"
+      },
+      {
+        "type":"text",
+        "id":"special_nav1_label",
+        "label":"Special nav1 label"
+      },
+      {
+        "type":"paragraph",
+        "content":"Special nav2"
+      },
+      {
+        "type":"url",
+        "id":"special_nav2_link",
+        "label":"Special nav2 link"
+      },
+      {
+        "type":"image_picker",
+        "id":"special_nav2_icon",
+        "label":"Special nav2 Icon"
+      },
+      {
+        "type":"text",
+        "id":"special_nav2_label",
+        "label":"Special nav2 label"
+      },
+      {
+        "type":"paragraph",
+        "content":"Special nav3"
+      },
+      {
+        "type":"url",
+        "id":"special_nav3_link",
+        "label":"Special nav3 link"
+      },
+      {
+        "type":"image_picker",
+        "id":"special_nav3_icon",
+        "label":"Special nav3 Icon"
+      },
+      {
+        "type":"text",
+        "id":"special_nav3_label",
+        "label":"Special nav3 label"
+      },
+      {
+        "type":"paragraph",
+        "content":"Cart Icon settings"
+      },
+      {
+        "type":"image_picker",
+        "id":"cart_icon",
+        "label":"Cart Icon"
+      },
+      {
+        "type":"text",
+        "id":"cart_label",
+        "label":"Cart label",
+        "default":"Buggy"
+      }    
     ],
     "blocks": [
       {
@@ -550,6 +541,27 @@
             "id":"announcement_color",
             "label":"Color",
             "default":"#fff"
+          }
+        ]
+      },
+      {
+        "type":"menu-icon",
+        "name":"Menu Icons",
+        "settings":[
+          {
+            "type":"text",
+            "id":"target_menu",
+            "label":"Target menu title"
+          },
+          {
+            "type":"image_picker",
+            "id":"menu_icon",
+            "label":"Menu Icon"
+          },
+          {
+            "type":"checkbox",
+            "id":"enable_icon_mobile",
+            "label":"Show Icon on mobile"
           }
         ]
       }

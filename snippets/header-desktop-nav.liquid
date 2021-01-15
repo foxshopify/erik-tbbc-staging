@@ -37,6 +37,16 @@
         class="site-nav__item site-nav__expanded-item{% if has_dropdown %} site-nav--has-dropdown{% endif %}{% if is_megamenu %} site-nav--is-megamenu{% endif %}"
         {% if has_dropdown %}aria-haspopup="true"{% endif %} data-dropdown="{{link.handle}}">
         <a href="{{ link.url }}" class="site-nav__link site-nav__link--underline{% if has_dropdown %} site-nav__link--has-dropdown{% endif %}">
+          {% for block in section.blocks %}
+            {%- if block.type == 'menu-icon' -%}
+              {%- assign target_menu_handle = block.settings.target_menu | handle -%}
+              {%- if link.handle == target_menu_handle -%}
+                <span class="menu-icon__wrapper">
+                  <img src="{{block.settings.menu_icon | img_url: '40x'}}" alt="{{block.settings.menu_icon.alt}}" class="menu-icon">
+                </span>  
+              {%- endif -%}
+            {%- endif -%}
+          {% endfor %}
           {{ link.title }}
         </a>
         {%- comment -%}Include Megamenu{%- endcomment -%}

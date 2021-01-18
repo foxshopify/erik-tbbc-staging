@@ -24,7 +24,7 @@
       {%- endif -%}
     {% endfor %}
 
-    <a href="{{routes.cart_url}}" class="spec-nav cart js-drawer-open-cart js-no-transition" aria-controls="CartDrawer">
+    <a href="{{routes.cart_url}}" class="spec-nav cart js-drawer-open-cart js-no-transition" aria-controls="CartDrawer" title="{{section.settings.cart_label}}">
       <span class="spec-icon-wrapper">
         <img src="{{section.settings.cart_icon | img_url:'40x' | split: '?' | first}}" alt="cart" class="spec-nav-icon">
       </span>

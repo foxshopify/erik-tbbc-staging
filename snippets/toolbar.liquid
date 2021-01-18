@@ -1,4 +1,4 @@
-<div class="toolbar{% if overlay_header%} toolbar--transparent{% endif %} small--hide">
+<div class="toolbar{% if overlay_header%} toolbar--transparent{% endif %} medium-down--hide">
   <div class="page-width">
     <div class="toolbar__content">
       <div class="toolbar__item toolbar__item--text">
@@ -23,7 +23,7 @@
             </a>
           {%- endif -%}
         {% endfor %}
-        {% if shop.customer_accounts_enabled or shop.customer_accounts_optional%}
+        {% if shop.customer_accounts_enabled %}
           {% if customer %}
             <a href="{{ routes.account_url }}" class="toolbar-nav--item">
               {% if section.settings.account_icon != nil %}
